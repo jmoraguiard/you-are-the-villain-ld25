@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\testApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameManager.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameState.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\splashscreenState.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\playState.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\explosion.cpp">
+      <Filter>src\Game\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\button.cpp">
+      <Filter>src\Game\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sea.cpp">
+      <Filter>src\Game\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ship.cpp">
+      <Filter>src\Game\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\island.cpp">
+      <Filter>src\Game\Agents</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game">
+      <UniqueIdentifier>{e825eab6-c6ec-43f8-ad00-b91419c200a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\Agents">
+      <UniqueIdentifier>{6990d3c0-8af7-4b41-addb-cf4f56217f35}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\testApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameState.h">
+      <Filter>src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameManager.h">
+      <Filter>src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\splashscreenState.h">
+      <Filter>src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\playState.h">
+      <Filter>src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\explosion.h">
+      <Filter>src\Game\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\button.h">
+      <Filter>src\Game\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ship.h">
+      <Filter>src\Game\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sea.h">
+      <Filter>src\Game\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\island.h">
+      <Filter>src\Game\Agents</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
