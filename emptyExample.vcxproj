@@ -81,7 +81,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat />
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -107,8 +107,10 @@
     <ClCompile Include="src\explosion.cpp" />
     <ClCompile Include="src\gameManager.cpp" />
     <ClCompile Include="src\gameState.cpp" />
+    <ClCompile Include="src\highscoresState.cpp" />
     <ClCompile Include="src\island.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\plane.cpp" />
     <ClCompile Include="src\playState.cpp" />
     <ClCompile Include="src\sea.cpp" />
     <ClCompile Include="src\ship.cpp" />
@@ -122,7 +124,9 @@
     <ClInclude Include="src\explosion.h" />
     <ClInclude Include="src\gameManager.h" />
     <ClInclude Include="src\gameState.h" />
+    <ClInclude Include="src\highscoresState.h" />
     <ClInclude Include="src\island.h" />
+    <ClInclude Include="src\plane.h" />
     <ClInclude Include="src\playState.h" />
     <ClInclude Include="src\sea.h" />
     <ClInclude Include="src\ship.h" />

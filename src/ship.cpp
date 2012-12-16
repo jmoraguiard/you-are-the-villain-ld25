@@ -4,8 +4,9 @@
 
 //------------------------------------------------------------
 Ship::Ship(){
-	setup(0,0,0,0);
+	setup(0,0,0,0, ofVec2f(0,0));
 	damping_ = 0.05f;
+	affected_externally_ = false;
 }
 
 //------------------------------------------------------------
@@ -17,8 +18,8 @@ void Ship::resetForce(){
 //------------------------------------------------------------
 void Ship::addForce(float x, float y){
     // add in a force in X and Y for this frame.
-    acceleration_.x = acceleration_.x + x;
-    acceleration_.y = acceleration_.y + y;
+    acceleration_.x = acceleration_.x + x*1.5;
+    acceleration_.y = acceleration_.y + y*1.5;
 }
 
 //------------------------------------------------------------
@@ -34,17 +35,34 @@ void Ship::addDampingForce(){
 }
 
 //------------------------------------------------------------
-void Ship::setup(float px, float py, float vx, float vy){
+void Ship::setup(float px, float py, float vx, float vy, ofVec2f end_point){
     position_.set(px,py);
 	previous_position_.set(px,py);
 	velocity_.set(vx,vy);
+	heading_position_ = end_point;
+	ship_.loadImage("ship.png");
 }
 
 //------------------------------------------------------------
 void Ship::update(){
+
+	float dirx = (heading_position_.x - position_.x);
+	float diry = (heading_position_.y - position_.y);
+	int magnitude = sqrt(pow(dirx, 2)+pow(diry, 2));
+	velocity_.x = (dirx/magnitude)*0.2;
+	velocity_.y = (diry/magnitude)*0.2;
+
 	previous_position_ = position_;
-	velocity_ = velocity_ + acceleration_;
+
+	float total_acc = sqrt(pow(acceleration_.x, 2)+pow(acceleration_.y, 2));
+	if(total_acc > 0.05){
+		velocity_ = velocity_ + acceleration_;
+		affected_externally_ = true;
+	}else{
+		affected_externally_ = false;
+	}
 	position_ = position_ + velocity_;
+
 }
 
 //------------------------------------------------------------
@@ -56,7 +74,10 @@ void Ship::draw(){
 	float radians = atan2(position_.y-previous_position_.y, position_.x-previous_position_.x);
 	float degrees = (radians/PI)*180;
 
-	ofSetColor(0, 0, 0, 200);
+	if(affected_externally_)
+		ofSetColor(0, 128, 0, 200);
+	else
+		ofSetColor(0, 0, 0, 200);
 	ofPushMatrix();
 		ofTranslate(position_.x, position_.y);
 		ofRotateZ(degrees-90);
@@ -65,6 +86,7 @@ void Ship::draw(){
 			glVertex2f(0, 10);
 			glVertex2f(10, -10);
 		glEnd();
+		ship_.draw(0, 0);
 	ofPopMatrix();
 
 	//ofSetColor(255, 0, 0);
@@ -72,6 +94,10 @@ void Ship::draw(){
 
 }
 
+//------------------------------------------------------------
+bool Ship::getAffectedByForces(){
+	return affected_externally_;
+}
 
 //------------------------------------------------------------
 void Ship::bounceOffWalls(){
@@ -110,4 +136,19 @@ void Ship::bounceOffWalls(){
 		velocity_ *= 0.3;
 	}
 	
+}
+
+//------------------------------------------------------------
+bool Ship::getHasArrived(){
+
+
+	float x = abs(position_.x - heading_position_.x);
+	float y = abs(position_.y - heading_position_.y);
+	float dist = sqrt(pow(x, 2)+pow(y, 2));
+
+	if(dist < 2){
+		return true;
+	}
+	return false;
+
 }

@@ -23,6 +23,8 @@ public:
 	void addVortex(float x, float y, float radius, float strength);
 	void addTsunami(float x, float y, float radius, float strength);
 
+	ofImage water_tile_[2];
+
 	ofPoint& operator [](int _index);
     
     int activeBuffer;
@@ -35,7 +37,10 @@ public:
 	int sea_size_;
 	
 	int sea_width_;
-	int sea_height_;    
+	int sea_height_;
+
+	int last_time_changed_;
+	int water_index_;
 
 };
 

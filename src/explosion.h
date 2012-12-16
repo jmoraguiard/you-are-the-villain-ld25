@@ -9,11 +9,13 @@ public:
 	Explosion();
 	~Explosion();
 
-	void setup(ofVec2f pos, int total_millis, int radius);
+	void setup(ofVec2f pos, int total_millis, int radius, int id);
 	bool update();
-	void draw();
+	void draw(bool air);
 
 	bool isTouchingExplosion(ofVec2f pos);
+
+	int getId(){ return explosion_id_; }
 
 private:
 
@@ -25,6 +27,8 @@ private:
 	float initial_millis_;
 	float partial_millis_;
 	float total_millis_;
+
+	int explosion_id_;
 
 };
 

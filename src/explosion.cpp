@@ -16,7 +16,9 @@ Explosion::~Explosion(){
 
 }
 
-void Explosion::setup(ofVec2f pos, int total_millis, int radius){
+void Explosion::setup(ofVec2f pos, int total_millis, int radius, int id){
+
+	explosion_id_ = id;
 
 	position_ = pos;
 
@@ -44,18 +46,19 @@ bool Explosion::update(){
 
 }
 
-void Explosion::draw(){
+void Explosion::draw(bool air){
 
-	ofSetColor(255, 0, 0);
+	if(air)
+		ofSetColor(255, 64, 32);
+	else
+		ofSetColor(192, 0, 0);
 	ofCircle(position_.x, position_.y, partial_radius_);
-	ofSetColor(0, 0, 0);
-	ofCircle(position_.x, position_.y, 1);
 
 }
 
 bool Explosion::isTouchingExplosion(ofVec2f pos){
 
 	float dist = sqrt(pow(position_.x-pos.x,2)+pow(position_.y-pos.y,2));
-	return dist <= partial_radius_;
+	return dist <= partial_radius_+5;
 
 }

@@ -1,30 +1,19 @@
-#ifndef SHIP_H
-#define SHIP_H
+#ifndef PLANE_H
+#define PLANE_H
 
 #include "ofMain.h"
 
-class Ship
+class Plane
 {
 public:
-    Ship();
-	virtual ~Ship(){
+    Plane();
+	virtual ~Plane(){
 	
 	}
 
 	void setup(float px, float py, float vx, float vy, ofVec2f start_point);
     void update();
     void draw();
-
-    void resetForce();
-    void addForce(float x, float y);
-    void addDampingForce();
-	
-	void bounceOffWalls();
-
-	void setDamping(float damp){ damping_ = damp; }
-	float getDamping(){ return damping_; }
-
-	bool getAffectedByForces();
 
 	void setPosition(ofVec2f pos){ position_ = pos; }
 	ofVec2f getPosition(){ return position_; }
@@ -39,10 +28,6 @@ public:
 
 private:
 	
-	ofImage ship_;
-
-	float damping_;
-
 	ofVec2f position_;
 	ofVec2f previous_position_;
 
@@ -50,8 +35,6 @@ private:
 
     ofVec2f velocity_;
     ofVec2f acceleration_;
-
-	bool affected_externally_;
 
 };
 
