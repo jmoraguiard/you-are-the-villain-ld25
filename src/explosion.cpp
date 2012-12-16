@@ -48,6 +48,9 @@ bool Explosion::update(){
 
 void Explosion::draw(bool air){
 
+	ofSetColor(0, 0, 0);
+	ofCircle(position_.x, position_.y, partial_radius_+2);
+
 	if(air)
 		ofSetColor(255, 64, 32);
 	else
@@ -59,6 +62,6 @@ void Explosion::draw(bool air){
 bool Explosion::isTouchingExplosion(ofVec2f pos){
 
 	float dist = sqrt(pow(position_.x-pos.x,2)+pow(position_.y-pos.y,2));
-	return dist <= partial_radius_+5;
+	return dist <= partial_radius_+10;
 
 }

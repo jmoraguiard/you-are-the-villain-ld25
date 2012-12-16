@@ -42,6 +42,15 @@ void PlayState::setup(GameManager* game_manager){
 	city_[0].loadImage("city.png");
 	city_[1].loadImage("city_2.png");
 
+	little_explosion_.loadSound("explosion_short.wav");
+	big_explosion_.loadSound("explosion_long.wav");
+	plane_take_off_.loadSound("take_off.wav");
+	plane_take_off_.setVolume(0.5f);
+	plane_landing_.loadSound("landing.wav");
+	plane_landing_.setVolume(0.5f);
+	ship_starting_.loadSound("ship.wav");
+	ship_starting_.setVolume(0.5f);
+
 	animation_index_ = 0;
 
 	current_attack_ = false;
@@ -114,10 +123,10 @@ void PlayState::setup(GameManager* game_manager){
 
 	game_manager->getSeaPointer()->setup(ofGetWidth(), ofGetHeight(), 60, 40);
 
-	current_button_.setup("Current", 7, ofVec2f(382, 698), ofVec2f(50, 50), 10000, true);
-	vortex_button_.setup("Vortex", 7, ofVec2f(452, 698), ofVec2f(50, 50), 15000, false);
+	current_button_.setup("Current", 7, ofVec2f(382, 698), ofVec2f(50, 50), 20000, true);
+	vortex_button_.setup("Vortex", 7, ofVec2f(452, 698), ofVec2f(50, 50), 10000, false);
 	tsunami_button_.setup("Tsunami", 7, ofVec2f(522, 698), ofVec2f(50, 50), 30000, false);
-	lightning_button_.setup("Lightning", 7, ofVec2f(592, 698), ofVec2f(50, 50), 1000, false);
+	lightning_button_.setup("Lightning", 7, ofVec2f(592, 698), ofVec2f(50, 50), 10000, false);
 
 	last_time_ship_created_ = ofGetElapsedTimeMillis();
 	last_time_plane_created_ = ofGetElapsedTimeMillis();
@@ -165,6 +174,8 @@ void PlayState::update(GameManager* game_manager){
 		temp_ship->setup(refineries_[start_refinery].x, refineries_[start_refinery].y, 0, 0, refineries_[end_refinery]);
 		ships_.push_back(temp_ship);
 
+		ship_starting_.play();
+
 		last_time_ship_created_ = ofGetElapsedTimeMillis();
 	}
 
@@ -178,6 +189,8 @@ void PlayState::update(GameManager* game_manager){
 		Plane *temp_plane = new Plane();
 		temp_plane->setup(cities_[start_city].x, cities_[start_city].y, 0, 0, cities_[end_city]);
 		planes_.push_back(temp_plane);
+
+		plane_take_off_.play();
 
 		last_time_plane_created_ = ofGetElapsedTimeMillis();
 	}
@@ -197,6 +210,7 @@ void PlayState::update(GameManager* game_manager){
 					combos_.push_back(ofVec2f(1, 100));
 					cout << " with: " << combos_[exp_temp->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 					sea_explosions_.push_back(exp_temp);
+					little_explosion_.play();
 					it = ships_.erase(it);
 					if(it == ships_.end()){
 						have_to_break = true;
@@ -216,6 +230,7 @@ void PlayState::update(GameManager* game_manager){
 				cout << "Explosion ship and island with id ";
 				cout << combos_.size() << endl;
 				combos_.push_back(ofVec2f(1, 100));
+				little_explosion_.play();
 				cout << " with: " << combos_[exp_temp->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 				sea_explosions_.push_back(exp_temp);
 				it = ships_.erase(it);
@@ -239,6 +254,7 @@ void PlayState::update(GameManager* game_manager){
 				combos_[sea_explosions_[i]->getId()].y += 100;
 				cout << " with: " << combos_[sea_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 				sea_explosions_.push_back(exp_temp);
+				little_explosion_.play();
 				it = ships_.erase(it);
 				if(it == ships_.end()){
 					have_to_break = true;
@@ -260,6 +276,7 @@ void PlayState::update(GameManager* game_manager){
 				combos_[air_explosions_[i]->getId()].y += 500;
 				cout << " with: " << combos_[air_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 				sea_explosions_.push_back(exp_temp);
+				little_explosion_.play();
 				it = ships_.erase(it);
 				if(it == ships_.end()){
 					have_to_break = true;
@@ -298,6 +315,7 @@ void PlayState::update(GameManager* game_manager){
 				combos_[air_explosions_[i]->getId()].y += 250;
 				cout << " with: " << combos_[air_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 				air_explosions_.push_back(exp_temp);
+				little_explosion_.play();
 				it = planes_.erase(it);
 				if(it == planes_.end()){
 					have_to_break = true;
@@ -311,6 +329,7 @@ void PlayState::update(GameManager* game_manager){
 
 		if((*it)->getHasArrived()){
 			it = planes_.erase(it);
+			plane_landing_.play();
 			if(it == planes_.end()){
 				have_to_break = true;
 				break;
@@ -336,6 +355,7 @@ void PlayState::update(GameManager* game_manager){
 				combos_[sea_explosions_[i]->getId()].y += 1000;
 				cout << " with: " << combos_[sea_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 				sea_explosions_.push_back(exp_temp);
+				big_explosion_.play();
 				it = refineries_.erase(it);
 				if(it == refineries_.end()){
 					have_to_break = true;
@@ -357,6 +377,7 @@ void PlayState::update(GameManager* game_manager){
 				combos_[air_explosions_[i]->getId()].y += 500;
 				cout << " with: " << combos_[air_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 				sea_explosions_.push_back(exp_temp);
+				big_explosion_.play();
 				it = refineries_.erase(it);
 				if(it == refineries_.end()){
 					have_to_break = true;
@@ -384,6 +405,7 @@ void PlayState::update(GameManager* game_manager){
 				combos_[sea_explosions_[i]->getId()].y += 1000;
 				cout << " with: " << combos_[sea_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 				sea_explosions_.push_back(exp_temp);
+				big_explosion_.play();
 				it = cities_.erase(it);
 				if(it == cities_.end()){
 					have_to_break = true;
@@ -405,6 +427,7 @@ void PlayState::update(GameManager* game_manager){
 				combos_[air_explosions_[i]->getId()].y += 500;
 				cout << " with: " << combos_[air_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 				sea_explosions_.push_back(exp_temp);
+				big_explosion_.play();
 				it = cities_.erase(it);
 				if(it == cities_.end()){
 					have_to_break = true;
@@ -476,12 +499,12 @@ void PlayState::draw(GameManager* game_manager, bool debug){
 		ships_[i]->draw();
 	}
 
-	for (int i = 0; i < planes_.size(); i++){
-		planes_[i]->draw();
-	}
-
 	for(int i = 0; i < sea_explosions_.size(); i++){
 		sea_explosions_[i]->draw(false);
+	}
+
+	for (int i = 0; i < planes_.size(); i++){
+		planes_[i]->draw();
 	}
 
 	for(int i = 0; i < air_explosions_.size(); i++){
@@ -604,6 +627,7 @@ void PlayState::mousePressed(GameManager* game_manager, int x, int y, int button
 					combos_.push_back(ofVec2f(1, 250));
 					cout << " with: " << combos_[exp_temp->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 					air_explosions_.push_back(exp_temp);
+					little_explosion_.play();
 					it = planes_.erase(it);
 					lightning_button_.setUsed();
 					if(it == planes_.end()){

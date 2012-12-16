@@ -20,10 +20,10 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 
-	game_manager_.draw(true);
+	game_manager_.draw(false);
 
-	ofSetColor(255, 255, 255);
-	ofDrawBitmapString(ofToString(ofGetFrameRate()), 20, 35);
+	//ofSetColor(255, 255, 255);
+	//ofDrawBitmapString(ofToString(ofGetFrameRate()), 20, 35);
 
 }
 

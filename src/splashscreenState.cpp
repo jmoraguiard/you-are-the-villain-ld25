@@ -25,7 +25,7 @@ void SplashscreenState::setup(GameManager* game_manager){
 	buttons_.clear();
 
 	ButtonClass button_temp;
-	button_temp.setup("START", 70, ofVec2f(341, 306), ofVec2f(342, 156), 5000, true);
+	button_temp.setup("START", 70, ofVec2f(341, 306), ofVec2f(342, 156), 5000, false);
 
 	buttons_.push_back(button_temp);
 

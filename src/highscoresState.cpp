@@ -25,7 +25,7 @@ void HighscoresState::setup(GameManager* game_manager){
 
 	buttons_.clear();
 
-	text_font_.loadFont("visitor1.ttf", 17, true);
+	text_font_.loadFont("visitor1.ttf", 15, true);
 
 	text_to_display_ = "";
 	game_manager->highscore_ = 0;
@@ -55,8 +55,8 @@ void HighscoresState::update(GameManager* game_manager){
 //--------------------------------------------------------------
 void HighscoresState::draw(GameManager* game_manager, bool debug){
 
-	ofSetColor(255, 0, 0);
-	text_font_.drawString(text_to_display_, 305, 40);
+	ofSetColor(0, 0, 0);
+	text_font_.drawString(text_to_display_, 325, 40);
 
 	for(int i = 0; i < buttons_.size(); i++)
 		buttons_[i].draw();
