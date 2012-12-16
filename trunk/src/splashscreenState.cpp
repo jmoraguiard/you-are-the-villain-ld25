@@ -25,7 +25,7 @@ void SplashscreenState::setup(GameManager* game_manager){
 	buttons_.clear();
 
 	ButtonClass button_temp;
-	button_temp.setup("START", 70, ofVec2f(341, 306), ofVec2f(342, 156));
+	button_temp.setup("START", 70, ofVec2f(341, 306), ofVec2f(342, 156), 5000, true);
 
 	buttons_.push_back(button_temp);
 
@@ -33,6 +33,9 @@ void SplashscreenState::setup(GameManager* game_manager){
 
 //--------------------------------------------------------------
 void SplashscreenState::update(GameManager* game_manager){
+
+	for(int i = 0; i < buttons_.size(); i++)
+		buttons_[i].update();
 
 }
 
@@ -72,9 +75,12 @@ void SplashscreenState::mouseDragged(GameManager* game_manager, int x, int y, in
 //--------------------------------------------------------------
 void SplashscreenState::mousePressed(GameManager* game_manager, int x, int y, int button){
 
-	for(int i = 0; i < buttons_.size(); i++)
-		if(buttons_[i].isUnderPoint(ofVec2f(x, y)))
+	for(int i = 0; i < buttons_.size(); i++){
+		if(buttons_[i].isUnderPoint(ofVec2f(x, y)) && buttons_[i].canBeUsed()){
+			buttons_[i].setSelected(true);
 			changeState(game_manager, PlayState::Instance());
+		}
+	}
 
 }
 

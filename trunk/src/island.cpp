@@ -45,9 +45,10 @@ void Island::draw() {
 
 	ofPushStyle();
 		ofSetColor(128, 128, 0);
-		for(int i = 0; i < island_shape_points_.size()-1; i++)
-			ofLine(island_shape_points_[i].x, island_shape_points_[i].y, island_shape_points_[i+1].x, island_shape_points_[i+1].y);
-		ofLine(island_shape_points_.at(island_shape_points_.size()-1).x, island_shape_points_.at(island_shape_points_.size()-1).y, island_shape_points_.at(0).x, island_shape_points_.at(0).y);
+		glBegin(GL_POLYGON);
+		for(int i = 0; i < island_shape_points_.size(); i++)
+			glVertex2d(island_shape_points_[i].x, island_shape_points_[i].y);
+		glEnd();
 	ofPopStyle();
 
 };

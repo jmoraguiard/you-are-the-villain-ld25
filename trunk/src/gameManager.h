@@ -26,12 +26,14 @@ public:
 
 	Sea* getSeaPointer(){ return &sea_; }
 
+	vector<ofVec2f> combos_;
+	int highscore_;
+
 private:
 	GameState* current_game_state_;
 
 	Sea sea_;
 	
-
 };
 
 #endif

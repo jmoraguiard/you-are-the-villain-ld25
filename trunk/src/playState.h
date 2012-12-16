@@ -3,10 +3,14 @@
 
 #include "gameState.h"
 
+#include "ofxXmlSettings.h"
+
 #include "sea.h"
 #include "ship.h"
 #include "island.h"
 #include "explosion.h"
+#include "button.h"
+#include "plane.h"
 
 class PlayState: public GameState{
 
@@ -31,10 +35,38 @@ private:
 
 	vector<Island *> islands_;
 	vector<Ship *> ships_;
-	vector<Explosion *> explosions_;
+	vector<Explosion *> sea_explosions_;
+	
+	vector<Plane *> planes_;
+	vector<Explosion *> air_explosions_;
+
+	vector<ofVec2f> refineries_;
+	vector<ofVec2f> cities_;
 
 	float previous_mouse_x_;
 	float previous_mouse_y_;
+
+	ofxXmlSettings scenario_xml_;
+
+	ButtonClass current_button_;
+	bool current_attack_;
+	ButtonClass vortex_button_;
+	bool vortex_attack_;
+	ButtonClass tsunami_button_;
+	bool tsunami_attack_;
+	ButtonClass lightning_button_;
+	bool lightning_attack_;
+
+	int last_time_ship_created_;
+	int last_time_plane_created_;
+
+	vector<ofVec2f> combos_;
+	int highscore_;
+
+	int last_time_changed_;
+	ofImage refinery_[2];
+	ofImage city_[2];
+	int animation_index_;
 
 };
 

@@ -14,8 +14,9 @@ public:
 
 	bool isUnderPoint(ofVec2f pos);
 
-private:
 	vector<ofVec2f> island_shape_points_;
+
+private:
 
 };
 

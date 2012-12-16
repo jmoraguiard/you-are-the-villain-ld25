@@ -46,6 +46,12 @@
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
       <Filter>addons\ofxXmlSettings\libs</Filter>
     </ClCompile>
+    <ClCompile Include="src\plane.cpp">
+      <Filter>src\Game\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\highscoresState.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -106,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
       <Filter>addons\ofxXmlSettings\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plane.h">
+      <Filter>src\Game\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="src\highscoresState.h">
+      <Filter>src\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

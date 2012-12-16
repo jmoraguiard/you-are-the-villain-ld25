@@ -3,6 +3,9 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 
+	ofEnableAlphaBlending();
+	ofSetBackgroundColor(0, 64, 192);
+
 	game_manager_.setup();
 
 }
@@ -18,6 +21,9 @@ void testApp::update(){
 void testApp::draw(){
 
 	game_manager_.draw(true);
+
+	ofSetColor(255, 255, 255);
+	ofDrawBitmapString(ofToString(ofGetFrameRate()), 20, 35);
 
 }
 

@@ -8,6 +8,9 @@ Sea::Sea(){
 
 	activeBuffer = 0;
 
+	water_tile_[0].loadImage("water_tile.png");
+	water_tile_[1].loadImage("water_tile_2.png");
+
 }
 
 //------------------------------------------------------------------------------------
@@ -49,6 +52,9 @@ void Sea::setup(int width, int height, int columns, int rows){
         buffer[i] = new ofPoint[sea_size_];
     }
 
+	last_time_changed_ = ofGetElapsedTimeMillis();
+	water_index_ = 0;
+
 }
 
 
@@ -83,6 +89,15 @@ void Sea::draw(){
 	
     float scalex = (float)sea_width_ / (float)sea_columns_;
     float scaley = (float)sea_height_ / (float)sea_rows_;
+
+	water_tile_[water_index_].draw(0, 0);
+	if((ofGetElapsedTimeMillis()-last_time_changed_) > 1500){
+		if(water_index_ == 0)
+			water_index_ = 1;
+		else
+			water_index_ = 0;
+		last_time_changed_ = ofGetElapsedTimeMillis();
+	}
 	
     for (int i = 0; i < sea_columns_; i++){
         for (int j = 0; j < sea_rows_; j++){
