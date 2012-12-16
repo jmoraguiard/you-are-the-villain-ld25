@@ -48,6 +48,12 @@ private:
 
 	ofxXmlSettings scenario_xml_;
 
+	ofSoundPlayer little_explosion_;
+	ofSoundPlayer big_explosion_;
+	ofSoundPlayer plane_take_off_;
+	ofSoundPlayer plane_landing_;
+	ofSoundPlayer ship_starting_;
+
 	ButtonClass current_button_;
 	bool current_attack_;
 	ButtonClass vortex_button_;

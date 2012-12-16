@@ -14,6 +14,7 @@ void Plane::setup(float px, float py, float vx, float vy, ofVec2f end_point){
 	previous_position_.set(px,py);
 	velocity_.set(vx,vy);
 	heading_position_ = end_point;
+	plane_.loadImage("plane.png");
 
 }
 
@@ -38,15 +39,16 @@ void Plane::draw(){
 	float radians = atan2(position_.y-previous_position_.y, position_.x-previous_position_.x);
 	float degrees = (radians/PI)*180;
 
-	ofSetColor(255, 255, 255, 200);
+	ofSetColor(255, 255, 255, 255);
 	ofPushMatrix();
 		ofTranslate(position_.x, position_.y);
 		ofRotateZ(degrees-90);
-		glBegin(GL_TRIANGLES);
+		/*glBegin(GL_TRIANGLES);
 			glVertex2f(-10, -10);
 			glVertex2f(0, 10);
 			glVertex2f(10, -10);
-		glEnd();
+		glEnd();*/
+		plane_.draw(-10, 20, 20, -35);
 	ofPopMatrix();
 
 }

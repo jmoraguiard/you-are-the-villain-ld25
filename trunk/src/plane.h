@@ -27,6 +27,7 @@ public:
 	bool getHasArrived();
 
 private:
+	ofImage plane_;
 	
 	ofVec2f position_;
 	ofVec2f previous_position_;

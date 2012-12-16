@@ -75,18 +75,18 @@ void Ship::draw(){
 	float degrees = (radians/PI)*180;
 
 	if(affected_externally_)
-		ofSetColor(0, 128, 0, 200);
+		ofSetColor(128, 255, 128, 200);
 	else
-		ofSetColor(0, 0, 0, 200);
+		ofSetColor(255, 255, 255, 255);
 	ofPushMatrix();
 		ofTranslate(position_.x, position_.y);
 		ofRotateZ(degrees-90);
-		glBegin(GL_TRIANGLES);
+		/*glBegin(GL_TRIANGLES);
 			glVertex2f(-10, -10);
 			glVertex2f(0, 10);
 			glVertex2f(10, -10);
-		glEnd();
-		ship_.draw(0, 0);
+		glEnd();*/
+		ship_.draw(-10, 20, 20, -35);
 	ofPopMatrix();
 
 	//ofSetColor(255, 0, 0);
