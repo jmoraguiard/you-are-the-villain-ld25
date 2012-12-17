@@ -9,7 +9,7 @@ public:
 	Explosion();
 	~Explosion();
 
-	void setup(ofVec2f pos, int total_millis, int radius, int id);
+	void setup(ofVec2f pos, int total_millis, int radius, int id, ofVec2f combo);
 	bool update();
 	void draw(bool air);
 
@@ -18,8 +18,10 @@ public:
 	int getId(){ return explosion_id_; }
 
 private:
-
 	ofVec2f position_;
+	ofVec2f combo_;
+
+	ofTrueTypeFont text_font_;
 
 	float partial_radius_;
 	int maximum_radius_;

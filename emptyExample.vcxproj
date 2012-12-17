@@ -116,6 +116,7 @@
     <ClCompile Include="src\ship.cpp" />
     <ClCompile Include="src\splashscreenState.cpp" />
     <ClCompile Include="src\testApp.cpp" />
+    <ClCompile Include="src\tutorialState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
@@ -132,6 +133,7 @@
     <ClInclude Include="src\ship.h" />
     <ClInclude Include="src\splashscreenState.h" />
     <ClInclude Include="src\testApp.h" />
+    <ClInclude Include="src\tutorialState.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\libs\openFrameworksCompiled\project\vs2010\openframeworksLib.vcxproj">

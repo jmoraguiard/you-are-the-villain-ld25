@@ -1,17 +1,17 @@
-#ifndef SPLASHSCREEN_STATE_H
-#define SPLASHSCREEN_STATE_H
+#ifndef TUTORIAL_STATE_H
+#define TUTORIAL_STATE_H
 
 #include "gameState.h"
 
 #include "sea.h"
 #include "button.h"
 
-class SplashscreenState: public GameState{
+class TutorialState: public GameState{
 
 public:
-	SplashscreenState();
-	~SplashscreenState();
-	static SplashscreenState* Instance();
+	TutorialState();
+	~TutorialState();
+	static TutorialState* Instance();
 
 	virtual void setup(GameManager* game_manager);
 	virtual void update(GameManager* game_manager);
@@ -25,7 +25,7 @@ public:
 	virtual void mouseReleased(GameManager* game_manager, int x, int y, int button);
 
 private:
-	static SplashscreenState splashscreen_state_;
+	static TutorialState tutorial_state_;
 
 	ofImage background_;
 

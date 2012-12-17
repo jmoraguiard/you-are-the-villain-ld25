@@ -52,6 +52,9 @@
     <ClCompile Include="src\highscoresState.cpp">
       <Filter>src\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\tutorialState.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -117,6 +120,9 @@
       <Filter>src\Game\Agents</Filter>
     </ClInclude>
     <ClInclude Include="src\highscoresState.h">
+      <Filter>src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tutorialState.h">
       <Filter>src\Game</Filter>
     </ClInclude>
   </ItemGroup>

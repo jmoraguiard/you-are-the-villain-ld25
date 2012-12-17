@@ -204,11 +204,8 @@ void PlayState::update(GameManager* game_manager){
 				float dist = sqrt(pow((*it)->getPosition().x-ships_[i]->getPosition().x,2)+pow((*it)->getPosition().y-ships_[i]->getPosition().y,2));
 				if(dist < 20 && ((*it)->getAffectedByForces() || ships_[i]->getAffectedByForces())){
 					Explosion *exp_temp = new Explosion();
-					exp_temp->setup((*it)->getPosition(), 2500, 30, combos_.size());
-					cout << "Explosion ship and ship with id ";
-					cout << combos_.size() << endl;
+					exp_temp->setup((*it)->getPosition(), 2500, 30, combos_.size(), ofVec2f(1, 100));
 					combos_.push_back(ofVec2f(1, 100));
-					cout << " with: " << combos_[exp_temp->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 					sea_explosions_.push_back(exp_temp);
 					little_explosion_.play();
 					it = ships_.erase(it);
@@ -226,12 +223,9 @@ void PlayState::update(GameManager* game_manager){
 		for(int i = 0; i < islands_.size(); i++){
 			if(islands_[i]->isUnderPoint((*it)->getPosition()) && (*it)->getAffectedByForces()){
 				Explosion *exp_temp = new Explosion();
-				exp_temp->setup((*it)->getPosition(), 2500, 30, combos_.size());
-				cout << "Explosion ship and island with id ";
-				cout << combos_.size() << endl;
+				exp_temp->setup((*it)->getPosition(), 2500, 30, combos_.size(), ofVec2f(1, 100));
 				combos_.push_back(ofVec2f(1, 100));
 				little_explosion_.play();
-				cout << " with: " << combos_[exp_temp->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 				sea_explosions_.push_back(exp_temp);
 				it = ships_.erase(it);
 				if(it == ships_.end()){
@@ -247,12 +241,9 @@ void PlayState::update(GameManager* game_manager){
 		for(int i = 0; i < sea_explosions_.size(); i++){
 			if(sea_explosions_[i]->isTouchingExplosion((*it)->getPosition())){
 				Explosion *exp_temp = new Explosion();
-				exp_temp->setup((*it)->getPosition(), 2500, 30, sea_explosions_[i]->getId());
-				cout << "Explosion ship and sea_explosion with id ";
-				cout << sea_explosions_[i]->getId() << endl;
 				combos_[sea_explosions_[i]->getId()].x += 1;
 				combos_[sea_explosions_[i]->getId()].y += 100;
-				cout << " with: " << combos_[sea_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
+				exp_temp->setup((*it)->getPosition(), 2500, 30, sea_explosions_[i]->getId(), combos_[sea_explosions_[i]->getId()]);
 				sea_explosions_.push_back(exp_temp);
 				little_explosion_.play();
 				it = ships_.erase(it);
@@ -269,12 +260,9 @@ void PlayState::update(GameManager* game_manager){
 		for(int i = 0; i < air_explosions_.size(); i++){
 			if(air_explosions_[i]->isTouchingExplosion((*it)->getPosition())){
 				Explosion *exp_temp = new Explosion();
-				exp_temp->setup((*it)->getPosition(), 2500, 30, air_explosions_[i]->getId());
-				cout << "Explosion ship and air_explosion with id ";
-				cout << air_explosions_[i]->getId() << endl;
 				combos_[air_explosions_[i]->getId()].x += 1;
 				combos_[air_explosions_[i]->getId()].y += 500;
-				cout << " with: " << combos_[air_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
+				exp_temp->setup((*it)->getPosition(), 2500, 30, air_explosions_[i]->getId(), combos_[air_explosions_[i]->getId()]);
 				sea_explosions_.push_back(exp_temp);
 				little_explosion_.play();
 				it = ships_.erase(it);
@@ -308,12 +296,9 @@ void PlayState::update(GameManager* game_manager){
 		for(int i = 0; i < air_explosions_.size(); i++){
 			if(air_explosions_[i]->isTouchingExplosion((*it)->getPosition())){
 				Explosion *exp_temp = new Explosion();
-				exp_temp->setup((*it)->getPosition(), 2500, 30, air_explosions_[i]->getId());
-				cout << "Explosion plane and air_explosion with id ";
-				cout << air_explosions_[i]->getId() << endl;
 				combos_[air_explosions_[i]->getId()].x += 1;
 				combos_[air_explosions_[i]->getId()].y += 250;
-				cout << " with: " << combos_[air_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
+				exp_temp->setup((*it)->getPosition(), 2500, 30, air_explosions_[i]->getId(), combos_[air_explosions_[i]->getId()]);
 				air_explosions_.push_back(exp_temp);
 				little_explosion_.play();
 				it = planes_.erase(it);
@@ -348,12 +333,9 @@ void PlayState::update(GameManager* game_manager){
 		for(int i = 0; i < sea_explosions_.size(); i++){
 			if(sea_explosions_[i]->isTouchingExplosion((*it))){
 				Explosion *exp_temp = new Explosion();
-				exp_temp->setup((*it), 3500, 60, sea_explosions_[i]->getId());
-				cout << "Explosion refinery and sea_explosion with id ";
-				cout << sea_explosions_[i]->getId() << endl;
 				combos_[sea_explosions_[i]->getId()].x += 1;
 				combos_[sea_explosions_[i]->getId()].y += 1000;
-				cout << " with: " << combos_[sea_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
+				exp_temp->setup((*it), 3500, 60, sea_explosions_[i]->getId(), combos_[sea_explosions_[i]->getId()]);
 				sea_explosions_.push_back(exp_temp);
 				big_explosion_.play();
 				it = refineries_.erase(it);
@@ -370,12 +352,9 @@ void PlayState::update(GameManager* game_manager){
 		for(int i = 0; i < air_explosions_.size(); i++){
 			if(air_explosions_[i]->isTouchingExplosion((*it))){
 				Explosion *exp_temp = new Explosion();
-				exp_temp->setup((*it), 3500, 60, air_explosions_[i]->getId());
-				cout << "Explosion refinery and air_explosion with id ";
-				cout << air_explosions_[i]->getId() << endl;
 				combos_[air_explosions_[i]->getId()].x += 1;
 				combos_[air_explosions_[i]->getId()].y += 500;
-				cout << " with: " << combos_[air_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
+				exp_temp->setup((*it), 3500, 60, air_explosions_[i]->getId(), combos_[air_explosions_[i]->getId()]);
 				sea_explosions_.push_back(exp_temp);
 				big_explosion_.play();
 				it = refineries_.erase(it);
@@ -398,12 +377,9 @@ void PlayState::update(GameManager* game_manager){
 		for(int i = 0; i < sea_explosions_.size(); i++){
 			if(sea_explosions_[i]->isTouchingExplosion((*it))){
 				Explosion *exp_temp = new Explosion();
-				exp_temp->setup((*it), 3500, 60, sea_explosions_[i]->getId());
-				cout << "Explosion city and sea_explosion with id ";
-				cout << sea_explosions_[i]->getId() << endl;
 				combos_[sea_explosions_[i]->getId()].x += 1;
 				combos_[sea_explosions_[i]->getId()].y += 1000;
-				cout << " with: " << combos_[sea_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
+				exp_temp->setup((*it), 3500, 60, sea_explosions_[i]->getId(), combos_[sea_explosions_[i]->getId()]);
 				sea_explosions_.push_back(exp_temp);
 				big_explosion_.play();
 				it = cities_.erase(it);
@@ -420,12 +396,9 @@ void PlayState::update(GameManager* game_manager){
 		for(int i = 0; i < air_explosions_.size(); i++){
 			if(air_explosions_[i]->isTouchingExplosion((*it))){
 				Explosion *exp_temp = new Explosion();
-				exp_temp->setup((*it), 3500, 60, air_explosions_[i]->getId());
-				cout << "Explosion city and air_explosion with id ";
-				cout << air_explosions_[i]->getId() << endl;
 				combos_[air_explosions_[i]->getId()].x += 1;
 				combos_[air_explosions_[i]->getId()].y += 500;
-				cout << " with: " << combos_[air_explosions_[i]->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
+				exp_temp->setup((*it), 3500, 60, air_explosions_[i]->getId(), combos_[air_explosions_[i]->getId()]);
 				sea_explosions_.push_back(exp_temp);
 				big_explosion_.play();
 				it = cities_.erase(it);
@@ -621,11 +594,8 @@ void PlayState::mousePressed(GameManager* game_manager, int x, int y, int button
 				float dist = sqrt(pow((*it)->getPosition().x-x,2)+pow((*it)->getPosition().y-y,2));
 				if(dist < 20){
 					Explosion *exp_temp = new Explosion();
-					exp_temp->setup((*it)->getPosition(), 2500, 30, combos_.size());
-					cout << "Explosion lightning and plane with id ";
-					cout << combos_.size() << endl;
+					exp_temp->setup((*it)->getPosition(), 2500, 30, combos_.size(), ofVec2f(1, 250));
 					combos_.push_back(ofVec2f(1, 250));
-					cout << " with: " << combos_[exp_temp->getId()].x << " nums and " << combos_[exp_temp->getId()].y << " points" << endl;
 					air_explosions_.push_back(exp_temp);
 					little_explosion_.play();
 					it = planes_.erase(it);
