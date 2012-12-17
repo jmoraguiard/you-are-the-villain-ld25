@@ -153,24 +153,13 @@ ofVec2f Sea::getForceFromPos(float xpos, float ypos){
 //------------------------------------------------------------------------------------
 void Sea::addCurrent(float x, float y, float vx, float vy, float radius, float strength){
 	
-	// x y and radius are in external dimensions.  Let's put them into internal dimensions:
-	// first convert to pct:
 	float pctx			= x / (float)sea_width_;
 	float pcty			= y / (float)sea_height_;
 	float radiusPct		= radius / (float)sea_width_;   
 	
-	// then, use them here: 
     int fieldPosX		= (int)(pctx * (float)sea_columns_);
     int fieldPosY		= (int)(pcty * (float)sea_rows_);
 	float fieldRadius	= (float)(radiusPct * sea_columns_);
-	
-	// we used to do this search through every pixel, ie: 
-	//    for (int i = 0; i < fieldWidth; i++){
-	//    for (int j = 0; j < fieldHeight; j++){
-	// but we can be smarter :)
-	// now, as we search, we can reduce the "pixels" we look at by 
-	// using the x y +/- radius.
-	// use min and max to make sure we don't look over the edges 
 	
 	int startx	= MAX(fieldPosX - fieldRadius, 0);    
 	int starty	= MAX(fieldPosY - fieldRadius, 0);
@@ -185,7 +174,7 @@ void Sea::addCurrent(float x, float y, float vx, float vy, float radius, float s
             float distance = (float)sqrt((float)(fieldPosX-i)*(fieldPosX-i) +
                                          (fieldPosY-j)*(fieldPosY-j));
             
-			if (distance < 0.0001) distance = 0.0001;  // since we divide by distance, do some checking here, devide by 0 is BADDDD
+			if (distance < 0.0001) distance = 0.0001;
 			
 			if (distance < fieldRadius){
 				
@@ -201,24 +190,13 @@ void Sea::addCurrent(float x, float y, float vx, float vy, float radius, float s
 //------------------------------------------------------------------------------------
 void Sea::addVortex(float x, float y, float radius, float strength){
 	
-    // x y and radius are in external dimensions.  Let's put them into internal dimensions:
-	// first convert to pct:
 	float pctx			= x / (float)sea_width_;
 	float pcty			= y / (float)sea_height_;
 	float radiusPct		= radius / (float)sea_width_;   
 	
-	// then, use them here: 
     int fieldPosX		= (int)(pctx * (float)sea_columns_);
     int fieldPosY		= (int)(pcty * (float)sea_rows_);
 	float fieldRadius	= (float)(radiusPct * sea_columns_);
-	
-	// we used to do this search through every pixel, ie: 
-	//    for (int i = 0; i < fieldWidth; i++){
-	//    for (int j = 0; j < fieldHeight; j++){
-	// but we can be smarter :)
-	// now, as we search, we can reduce the "pixels" we look at by 
-	// using the x y +/- radius.
-	// use min and max to make sure we don't look over the edges 
 	
 	int startx	= MAX(fieldPosX - fieldRadius, 0);    
 	int starty	= MAX(fieldPosY - fieldRadius, 0);
@@ -233,7 +211,7 @@ void Sea::addVortex(float x, float y, float radius, float strength){
             float distance = (float)sqrt((float)(fieldPosX-i)*(fieldPosX-i) +
                                          (fieldPosY-j)*(fieldPosY-j));
             
-			if (distance < 0.0001) distance = 0.0001;  // since we divide by distance, do some checking here, devide by 0 is BADDDD
+			if (distance < 0.0001) distance = 0.0001;
 			
 			if (distance < fieldRadius){
 				
@@ -242,7 +220,7 @@ void Sea::addVortex(float x, float y, float radius, float strength){
                 float strongness = strength * pct;
                 float unit_px = ( fieldPosX - i) / distance;
                 float unit_py = ( fieldPosY - j) / distance;
-                sea_[pos].x += unit_py * strongness;   /// Note: px and py switched, for perpendicular
+                sea_[pos].x += unit_py * strongness;
                 sea_[pos].y -= unit_px * strongness;
 				sea_[pos].x += unit_px * strongness;
                 sea_[pos].y += unit_py * strongness;
@@ -254,26 +232,13 @@ void Sea::addVortex(float x, float y, float radius, float strength){
 //------------------------------------------------------------------------------------
 void Sea::addTsunami(float x, float y, float radius, float strength){
 	
-	
-	// x y and radius are in external dimensions.  Let's put them into internal dimensions:
-	// first convert to pct:
-	
 	float pctx			= x / (float)sea_width_;
 	float pcty			= y / (float)sea_height_;
 	float radiusPct		= radius / (float)sea_width_;
-	
-	// then, use them here:
+
     int fieldPosX		= (int)(pctx * (float)sea_columns_);
     int fieldPosY		= (int)(pcty * (float)sea_rows_);
 	float fieldRadius	= (float)(radiusPct * sea_columns_);
-	
-	// we used to do this search through every pixel, ie:
-	//    for (int i = 0; i < cols; i++){
-	//    for (int j = 0; j < rows; j++){
-	// but we can be smarter :)
-	// now, as we search, we can reduce the "pixels" we look at by
-	// using the x y +/- radius.
-	// use min and max to make sure we don't look over the edges
 	
 	int startx	= MAX(fieldPosX - fieldRadius, 0);
 	int starty	= MAX(fieldPosY - fieldRadius, 0);
@@ -288,7 +253,7 @@ void Sea::addTsunami(float x, float y, float radius, float strength){
             float distance = (float)sqrt((float)(fieldPosX-i)*(fieldPosX-i) +
                                          (fieldPosY-j)*(fieldPosY-j));
             
-			if (distance < 0.0001) distance = 0.0001;  // since we divide by distance, do some checking here, devide by 0 is BADDDD
+			if (distance < 0.0001) distance = 0.0001;
 			
 			if (distance < fieldRadius){
                 
@@ -305,14 +270,9 @@ void Sea::addTsunami(float x, float y, float radius, float strength){
 
 void Sea::propagate(float damping){
 
-    //  Based in this entry http://freespace.virgin.net/hugo.elias/graphics/x_water.htm
-    //  Here is my explanation: http://www.patriciogonzalezvivo.com/blog/?p=657
-    //
-    int one = activeBuffer%2;      // Buffer 1
-    int two = (activeBuffer+1)%2;  // Buffer 2
-    
-    //  for every non-edge element:
-    //
+    int one = activeBuffer%2;
+    int two = (activeBuffer+1)%2;
+
     for (int r = 1; r < sea_rows_-1; r++){
         for (int c = 1; c < sea_columns_-1; c++){
             
@@ -333,8 +293,6 @@ void Sea::propagate(float damping){
         }
     }
     
-    //  Swap the buffers
-    //
     activeBuffer = two;
 }
 

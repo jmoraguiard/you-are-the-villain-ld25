@@ -2,6 +2,8 @@
 
 Explosion::Explosion(){
 
+	text_font_.loadFont("visitor1.ttf", 20, true);
+
 	position_.set(0, 0);
 
 	partial_millis_ = 0;
@@ -16,10 +18,11 @@ Explosion::~Explosion(){
 
 }
 
-void Explosion::setup(ofVec2f pos, int total_millis, int radius, int id){
+void Explosion::setup(ofVec2f pos, int total_millis, int radius, int id, ofVec2f combo){
 
 	explosion_id_ = id;
 
+	combo_ = combo;
 	position_ = pos;
 
 	initial_millis_ = ofGetElapsedTimeMillis();
@@ -56,6 +59,13 @@ void Explosion::draw(bool air){
 	else
 		ofSetColor(192, 0, 0);
 	ofCircle(position_.x, position_.y, partial_radius_);
+
+	ofSetColor(0, 0, 0);
+	ofPushMatrix();
+		ofTranslate(position_.x, position_.y);
+		ofScale(partial_radius_/8, partial_radius_/8);
+		text_font_.drawString("x"+ofToString(combo_.x), 0, 0);
+	ofPopMatrix();
 
 }
 
