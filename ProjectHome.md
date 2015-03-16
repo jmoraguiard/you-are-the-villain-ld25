@@ -1,0 +1,1 @@
+This project is a openFrameworks project for developing my Ludum Dare Compo's game themed under "You Are The Villan". Let's see what we get! :)
